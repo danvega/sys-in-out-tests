@@ -9,18 +9,11 @@ import java.io.PrintStream;
 
 public class ApplicationTests {
 
-    @Test( expected = IllegalArgumentException.class)
-    public void emptyFirstName_ShouldThrowIllegalArgumentException() {
-        String userInput = "\nVega\ndanvega@gmail.com";
-        ByteArrayInputStream bais = new ByteArrayInputStream(userInput.getBytes());
-        System.setIn(bais);
-
-        Application.main(null);
-    }
-
     @Test
     public void validUserInput_ShouldResultInExpectedOutput() {
-        String userInput = "Dan\nVega\ndanvega@gmail.com";
+        String userInput = String.format("Dan%sVega%sdanvega@gmail.com",
+                System.lineSeparator(),
+                System.lineSeparator());
         ByteArrayInputStream bais = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(bais);
 
@@ -31,7 +24,7 @@ public class ApplicationTests {
 
         Application.main(null); // call the main method
 
-        String[] lines = baos.toString().split("\n");
+        String[] lines = baos.toString().split(System.lineSeparator());
         String actual = lines[lines.length-1];
 
         // checkout output
